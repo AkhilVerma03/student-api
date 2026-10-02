@@ -27,4 +27,17 @@ public class StudentService {
 
         return studentRepository.save(student);
     }
+    public Student updateStudent(Long id , Student student) {
+        Student existingStudent = studentRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Student not found"));
+        existingStudent.setName(student.getName());
+        existingStudent.setEmail(student.getEmail());
+        return studentRepository.save(existingStudent);
+    }
+
+    public void deleteStudent(Long id) {
+        Student deletingStudent = studentRepository.findById(id)
+                .orElseThrow(()-> new NoSuchElementException("Student not found"));
+        studentRepository.delete(deletingStudent);
+    }
 }
